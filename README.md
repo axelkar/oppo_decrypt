@@ -1,3 +1,13 @@
+# Nix
+
+This fork (<https://github.com/axelkar/oppo_decrypt>) contains a Nix flake. You can run the program like this:
+
+```sh
+nix run -- github:axelkar/oppo_decrypt opscrypto decrypt myops.ops
+```
+
+The hard work is credit of [Bjoern Kerler](https://github.com/bkerler/)!
+
 # oppo_decrypt
 
 ## Oppo `.ofp` and OnePlus `.ops` firmware decrypter
