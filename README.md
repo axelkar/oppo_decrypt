@@ -1,63 +1,67 @@
 # oppo_decrypt
-Oppo .ofp and Oneplus .ops Firmware decrypter
-------------------------------------
 
-* ofp_qc_decrypt.py  : Decrypts oppo qc chipset based firmware with .ofp extension (oppo)
-* ofp_mtk_decrypt.py : Decrypts oppo mtk chipset based firmware with .ofp extension (oppo)
-* opscrypto.py       : Decrypts and re-encrypts based firmware with .ops extension (oneplus)
-* backdoor.py        : Enables hidden "readback" functionality
+## Oppo `.ofp` and OnePlus `.ops` firmware decrypter
 
+Tools:
 
-Installation:
--------------
-- Install >= python 3.8 and pip3
+* `ofp_qc_decrypt`: Decrypts Qualcomm-based firmware with `.ofp` extension (Oppo)
+* `ofp_mtk_decrypt`: Decrypts MediaTek-based firmware with `.ofp` extension (Oppo)
+* `opscrypto`: Decrypts and re-encrypts firmware with `.ops` extension (OnePlus)
+* `backdoor`: Enables hidden "readback" functionality in `MsmDownloadTool.exe`
 
-In the console, run
-```bash
-pip3 install -r requirements.txt
+## Installation
+
+- Install Python >= 3.8
+
+- Run the following commands in a terminal:
+
+  ```sh
+  # On Windows when you want to use the `backdoor` tool:
+  pip install -e .[frida]
+  # Everywhere else:
+  pip install -e .
+  ```
+
+Windows, Linux and macOS are supported.
+
+## Usage
+
+### Extract Oppo `.ofp` file
+
+```sh
+oppo_decrypt ofp_qc_decrypt <myofp.ofp> <output directory>
+oppo_decrypt ofp_mtk_decrypt <myofp.ofp> <output directory>
 ```
 
-Both Linux and Windows now supported, folks !
+### Extract OnePlus `.ops` file
 
-Usage:
--------- 
-* Extract oppo ofp file:
-
+```sh
+oppo_decrypt opscrypto decrypt <myops.ops>
 ```
-python3 ofp_qc_decrypt.py [myops.ofp] [directory to extract]
-python3 ofp_mtk_decrypt.py [myops.ofp] [directory to extract]
-```
+File will be in a directory named `extract` next to the input file
 
-* Extract oneplus ops file:
+### Repack OnePlus `.ops` file
 
-```
-python3 opscrypto.py decrypt [myops.ops]
-```
-File will be in the extract subdirectory
-
-* Repack oneplus ops file:
-
-```
-python3 opscrypto.py encrypt [path to extracted firmware]
+```sh
+oppo_decrypt opscrypto encrypt [path to directory with firmware]
 ```
 
+### Enable readback mode (Windows-only)
 
-* Enable readback mode (use admin command prompt under windoze):
+Note: Launch the terminal with administrator privileges.
 
+```sh
+oppo_decrypt backdoor "MsmDownloadTool.exe"
 ```
-python3 backdoor.py "MsmDownloadTool V4.0.exe"'
-```
 
-* Merge super images:
+### Merge super images
 
-The .ofp may contain super firmware from multiple carriers, check the super_map.csv.txt outside .ofp first.
+The `.ofp` may contain super firmware from multiple carriers, check the `super_map.csv.txt` outside `.ofp` first. You can use the `simg2img` tool (often packaged in Linux distributions as as [`android-tools`](https://github.com/nmeum/android-tools)) to merge them:
 
-```
-sudo apt install simg2img # If you have already installed, skip this step.
+```sh
 simg2img [super.0.xxxxxxxx.img] [super.1.xxxxxxxx.img] [super.1.xxxxxxxx.img] [filename to merge] # All split super imgs must be the same carrier
 ```
 
-License:
--------- 
-Share, modify and use as you like, but refer the original author !
-And if you like my work, please donate :)
+## License
+
+Licensed under MIT license ([LICENSE-MIT](LICENSE-MIT) or <http://opensource.org/licenses/MIT>).

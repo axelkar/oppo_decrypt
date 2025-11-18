@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools >= 70"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "oppo_decrypt"
+version = "0.1.0"
+license = "MIT"
+dependencies = ["docopt ~= 0.6.2", "pycryptodomex ~= 3.21.0"]
+requires-python = ">= 3.8"
+
+[dependency-groups]
+frida = ["frida ~= 16"]
+
+[project.scripts]
+oppo_decrypt = "oppo_decrypt.main:main"
+
+[tool.setuptools]
+# Everything in one directory
+package-dir.oppo_decrypt = "."
+
+[tool.ruff.lint]
+extend-select = [
+  "W",   # Pycodestyle warnings
+  "I",   # import sort
+  "PTH", # use pathlib
+  "SIM", # simplify
+  "UP",  # Pyupgrade
+]
