@@ -1,7 +1,7 @@
 {
   description = "Oppo .ofp firmware decrypter and OnePlus .ops decrypter/encrypter";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+  inputs.nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst";
 
   outputs =
     { self, nixpkgs }:
